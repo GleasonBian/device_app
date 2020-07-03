@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void loadData() async{
-    var result = await Fetch.login({'userid':'bianliuzhu', 'password':'bianliuzhu'});
+    var result = await Fetch.getSingleJoke({'param': {'sid':'28654780'}});
     setState(() {
       data = result.toString();
     });
