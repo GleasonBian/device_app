@@ -6,7 +6,6 @@ import 'package:flutter_template/pages/four.dart';
 import 'package:flutter_template/pages/one.dart';
 import 'package:flutter_template/pages/three.dart';
 import 'package:flutter_template/pages/two.dart';
-import 'package:flutter_template/public/config.dart';
 import 'package:flutter_template/public/interface.dart';
 
 
@@ -34,12 +33,16 @@ class _IndexPageState extends State<IndexPage> {
     return Scaffold (
       body: PageView(
         controller: _controller,
+        onPageChanged: (val) => setState((){
+          _currentIndex = val;
+        }),
         children: [
           PageOne(),
           PageTwo(),
           PageThree(),
           PageFour()
         ],
+
       ),
       bottomNavigationBar: BottomNavigationBar(
         // 当前所在的页面

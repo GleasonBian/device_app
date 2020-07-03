@@ -27,7 +27,7 @@ Future main({String url = '', String type = "get", Map<String,dynamic>data}) asy
     Response response;
     await dio.post(url,data: data).then((res) {
       response = res;
-      print("$url: ------>$res");
+      print("$url-$type: ------>$res");
     }).catchError((err) => throw Exception("$url: ----->$err"));
     return response.data;
   }
