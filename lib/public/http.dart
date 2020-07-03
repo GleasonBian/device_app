@@ -11,9 +11,13 @@ final dio = Dio(BaseOptions(
 ));
 
 Future main({String url = '', String type = "get", Map<String,dynamic>data}) async {
+  // 将请求类型 转为 大写
   type = type.toUpperCase();
+  // 请求 参数 转换, 为 restful 使用
   data.containsKey('id') ? url = url + '/' + data['id'] : url = url;
+  // 打印 请求 参数
   print('请求参数: url:$url,type:$type,body:$data');
+
   /**
    * @date: 2020/7/3
    * @author: Gleason
