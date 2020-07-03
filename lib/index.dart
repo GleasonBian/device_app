@@ -1,9 +1,7 @@
 
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/public/config.dart';
-import 'package:flutter_template/public/dev.dart';
 import 'package:flutter_template/public/interface.dart';
 
 
@@ -14,7 +12,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  String name;
+  String data;
   @override
   void initState() {
     super.initState();
@@ -33,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             new Text('app name: ${ENV.envName}.'),
             new Text('env name: ${ENV.baseUrl}.'),
-            new Text('env name: $name.'),
+            new Text('res data: $data'),
           ],
         ),
       ),
@@ -41,12 +39,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void loadData() async{
-    Map result = await Fetch.getData({'userid':'bianliuzhu', 'password':'bianliuzhu'});
-    print('result:${result}');
-
+    var result = await Fetch.login({'userid':'bianliuzhu', 'password':'bianliuzhu'});
     setState(() {
-      name = result['user'].toString();
-
+      data = result.toString();
     });
   }
 }

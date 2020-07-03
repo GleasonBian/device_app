@@ -8,7 +8,7 @@ void main() {
   var configuredApp = new ENV(
     appName: '设备管理系统',
     envName: 'dev',
-    baseUrl: 'https://dev.com/',
+    baseUrl: 'https://api.apiopen.top/',
     child: new MyApp(),
   );
 

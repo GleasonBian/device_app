@@ -9,23 +9,18 @@ final dio = Dio(BaseOptions(
   contentType:"application/json; charset=utf-8",
 ));
 
-Future main({String url = '', String type = "get", dynamic body}) async {
+Future main({String url = '', String type = "get", dynamic data}) async {
   type = type.toUpperCase();
-  print('请求参数: url:$url,type:$type,body:$body');
+  print('请求参数: url:$url,type:$type,body:$data');
   if (type == 'POST') {
-
-//     await dio.(url).then((value) => value).catchError((e)=>e);
-    Response response = await dio.post(url,data: body);
+    Response response;
+    await dio.post(url,data: data).then((res) {
+      response = res;
+      print("$url: ------>$res");
+    }).catchError((err) => throw Exception("$url: ----->$err"));
     return response.data;
   }
-}
-/*
-class fetch{
-  String url='url';
-  String type="get";
-  Map<String,dynamic> body;
+  if (type == "Get"){
 
-    factory fetch({ String url='url', String type="get", Map<String,dynamic> body}){
-      return
-    }
-}*/
+  }
+}
