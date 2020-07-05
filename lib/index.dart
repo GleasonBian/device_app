@@ -2,11 +2,11 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_template/Dio/interface.dart';
 import 'package:flutter_template/pages/four.dart';
 import 'package:flutter_template/pages/one.dart';
 import 'package:flutter_template/pages/three.dart';
 import 'package:flutter_template/pages/two.dart';
-import 'package:flutter_template/public/interface.dart';
 
 
 class IndexPage extends StatefulWidget {
