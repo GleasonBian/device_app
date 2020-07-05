@@ -42,7 +42,6 @@ class _IndexPageState extends State<IndexPage> {
           PageThree(),
           PageFour()
         ],
-
       ),
       bottomNavigationBar: BottomNavigationBar(
         // 当前所在的页面
