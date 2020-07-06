@@ -2,13 +2,15 @@
 
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_template/index.dart';
+import 'package:flutter_template/pages/login.dart';
 import 'package:flutter_template/pages/one/one_page_1.dart';
 
 
 var rootHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-      return IndexPage();
+      return Login();
     });
 
 var onePage1Handler = Handler(handlerFunc: (BuildContext context, Map<String, List<String>> params) {

@@ -2,12 +2,14 @@
 /// 项目入口文件
 
 import 'package:flutter/material.dart';
+import 'package:fluro/fluro.dart';
+
 import 'package:flutter_template/config/config.dart';
 import 'package:flutter_template/index.dart';
-
-import 'package:fluro/fluro.dart';
 import 'package:flutter_template/router/routers.dart';
 import 'package:flutter_template/router/application.dart';
+
+import 'package:flutter_template/pages/login.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -22,10 +24,7 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: ENV.appName,
       onGenerateRoute: Application.router.generator,
-      theme:  ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: IndexPage(),
+      home: Login(),
     );
   }
 }
