@@ -2,6 +2,7 @@
 /// 这里封装的 请求方法 支持 restful 规范
 import 'package:dio/dio.dart';
 import 'package:flutter_template/config/config.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final dio = Dio(BaseOptions(
   baseUrl: ENV.baseUrl,
@@ -10,7 +11,35 @@ final dio = Dio(BaseOptions(
   contentType:"application/json; charset=utf-8",
 ));
 
+tokenInter(){
+  dio.interceptors.add(InterceptorsWrapper(
+      onRequest:(RequestOptions options){
+        // 在发送请求之前做一些预处理
+        //我这边是在发送前到SharedPreferences（本地存储）中取出token的值，然后添加到请求头中
+        //dio.lock()是先锁定请求不发送出去，当整个取值添加到请求头后再dio.unlock()解锁发送出去
+        dio.lock();
+        Future<dynamic> future = Future(()async{
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          return prefs.getString("loginToken");
+        });
+        return future.then((value) {
+          options.headers["Authorization"] = value;
+          return options;
+        }).whenComplete(() => dio.unlock()); // unlock the dio
+      },
+      onResponse:(Response response) {
+        // 在返回响应数据之前做一些预处理
+        return response; // continue
+      },
+      onError: (DioError e) {
+        // 当请求失败时做一些预处理
+        return e;//continue
+      }
+  ));
+}
+
 Future main({String url = '', String type = "get", Map<String,dynamic>data}) async {
+  tokenInter();
   // 将请求类型 转为 大写
   type = type.toUpperCase();
   // 请求 参数 转换, 为 restful 使用
@@ -81,4 +110,5 @@ Future main({String url = '', String type = "get", Map<String,dynamic>data}) asy
     }).catchError((err) => throw Exception("$url: ----->$err"));
     return response.data;
   }
+
 }

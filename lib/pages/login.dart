@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_template/Dio/interface.dart';
 import 'package:flutter_template/config/config.dart';
+import 'package:flutter_template/router/application.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -122,7 +124,7 @@ class _LoginState extends State<Login> {
                         color: Theme.of(context).primaryColor,
                         textColor: Colors.white,
                         child: Text("登  录"),
-                        onPressed: _onLogin(),
+                        onPressed: _onLogin,
                       ),
                     )
                   ],
@@ -134,9 +136,14 @@ class _LoginState extends State<Login> {
     );
   }
 
-  _onLogin() {
-//    if ((_formKey.currentState as FormState).validate()){
-//
-//    }
+  _onLogin() async{
+      if((_formKey.currentState as FormState).validate()){
+        Map result = await Fetch.login({'userid':_userIdController.text, 'password':_passWordController.text});
+        if (result['code'] == 200){
+          Application.router.navigateTo(context, "/index");
+        }
+      }else{
+        print(2);
+      }
   }
 }

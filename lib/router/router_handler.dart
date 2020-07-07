@@ -11,7 +11,8 @@ import 'package:flutter_template/pages/one/one_page_1.dart';
 var rootHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
       return Login();
-    });
+    },
+);
 
 var onePage1Handler = Handler(handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   String message = params["message"]?.first;
@@ -24,6 +25,12 @@ var onePage1Handler = Handler(handlerFunc: (BuildContext context, Map<String, Li
   return OnePage1(message: message, color: color, result: result);
 });
 
+
+var indexHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return IndexPage();
+  },
+);
 /*var demoFunctionHandler = Handler( type: HandlerType.function, handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   String message = params["message"]?.first;
   showDialog(

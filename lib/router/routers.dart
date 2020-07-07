@@ -5,6 +5,7 @@ import 'package:flutter_template/router/router_handler.dart';
 class Routes {
   static String root = "/";
   static String demoSimple = "/demo";
+  static String index = "/index";
   static String demoSimpleFixedTrans = "/demo/fixedtrans";
   static String demoFunc = "/demo/func";
   static String deepLink = "/message";
@@ -15,6 +16,7 @@ class Routes {
       return;
     });
     router.define(root, handler: rootHandler);
+    router.define(index, handler: indexHandler);
     router.define(demoSimple, handler: onePage1Handler);
 //    router.define(demoSimpleFixedTrans, handler: onePage1, transitionType: TransitionType.inFromLeft);
 //    router.define(demoFunc, handler: demoFunctionHandler);
