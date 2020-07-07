@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_template/Dio/interface.dart';
 import 'package:flutter_template/config/config.dart';
 import 'package:flutter_template/router/application.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -139,8 +140,12 @@ class _LoginState extends State<Login> {
   _onLogin() async{
       if((_formKey.currentState as FormState).validate()){
         Map result = await Fetch.login({'userid':_userIdController.text, 'password':_passWordController.text});
-        if (result['code'] == 200){
+        if (result['Data']!=null){
           Application.router.navigateTo(context, "/index");
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setString("loginToken",result['Data']);
+        } else {
+
         }
       }else{
         print(2);
