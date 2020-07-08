@@ -39,7 +39,7 @@ class _IndexPageState extends State<IndexPage> {
         }),
         children: [
           PageOne(),
-          PageTwo(),
+          RefuelPlanPage(),
           PageThree(),
           PageFour()
         ],
