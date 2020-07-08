@@ -19,14 +19,8 @@ class _LoginState extends State<Login> {
 
   //声明焦点(1/4)
   FocusNode focusNode1 = new FocusNode();
-  ScrollController _controller = ScrollController();
-
   @override
   void initState() {
-    focusNode1.addListener(() {
-      print("焦点1是否被选中：" + focusNode1.hasFocus.toString());
-      _controller.jumpTo(_controller.position.maxScrollExtent);
-    });
   }
 
   @override
@@ -40,11 +34,10 @@ class _LoginState extends State<Login> {
       ),
       body: ListView(
           shrinkWrap: true,
-          controller: _controller,
           children: [
             Container(
               color: Colors.blue,
-              height: 200,
+              height: focusNode1.hasFocus ? 0 : 200,
               child: Image.asset(
                 'assets/images/login.png',
                 scale: 1.3,
@@ -82,7 +75,8 @@ class _LoginState extends State<Login> {
                           validator: (v) {
                             return v.trim().isNotEmpty ? null : "用户名不能为空";
                           },
-                          focusNode: focusNode1),
+                          focusNode: focusNode1
+                      ),
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.8,
