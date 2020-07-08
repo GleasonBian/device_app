@@ -1,7 +1,7 @@
 name: flutter_template
 description: flutter 模板项目.
 # Remove this line if you wish to publish to pub.dev
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
 
@@ -16,7 +16,9 @@ dependencies:
   dio: ^3.0.9
   fluro: ^1.6.3
   shared_preferences: ^0.5.7+3
-  fluttertoast: ^5.0.1
+  pull_to_refresh: ^1.6.0
+  fluttertoast: ^4.0.0
+  flutter_custom_dialog: ^1.0.20
 
 dev_dependencies:
   flutter_test:
