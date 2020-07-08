@@ -9,5 +9,5 @@ class Fetch {
   /// 获取overview
   static overview(params) => main(url: 'overview',type: 'get', data:params);
   /// 获取overview
-  static equipment(params) => main(url: 'overview',type: 'get', data:params);
+  static equipment({params}) => main(url: 'overview',type: 'get', data:params);
 }

@@ -53,6 +53,7 @@ class OnePage1 extends StatelessWidget {
                   } else {
                     Navigator.pop(context, result);
                   }
+                  loadData();
                 },
                 child: Text(
                   "请点我",
@@ -69,7 +70,7 @@ class OnePage1 extends StatelessWidget {
     );
   }
   void loadData() async{
-//    var result = await Fetch.equipment();
-//    print("result: $result");
+    var result = await Fetch.equipment();
+    print("result: $result");
   }
 }

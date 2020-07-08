@@ -52,7 +52,7 @@ Future main({String url = '', String type = "get", Map<String,dynamic>data}) asy
   print('请求参数: url:$url,type:$type,body:$data');
 
   // 请求参数转换, 为 restful 使用
-//  data.containsKey('id') ? url = url + '/' + data['id'] : url = url;
+  //  data.containsKey('id') ? url = url + '/' + data['id'] : url = url;
   // 提交测试
   /**
    * @date: 2020/7/3
@@ -75,7 +75,7 @@ Future main({String url = '', String type = "get", Map<String,dynamic>data}) asy
    */
   if (type == "GET"){
     List getParams = [];
-    if (data.containsKey('param')) {
+    if (data !=null && data.containsKey('param')) {
       data['param'].forEach((k,v)=> getParams.add("$k=$v"));
       String str =  getParams.join('&');
       url += '?' + str;
