@@ -19,6 +19,7 @@ class _LoginState extends State<Login> {
 
   //声明焦点(1/4)
   FocusNode focusNode1 = new FocusNode();
+  FocusNode focusNode2 = new FocusNode();
   @override
   void initState() {
   }
@@ -37,7 +38,7 @@ class _LoginState extends State<Login> {
           children: [
             Container(
               color: Colors.blue,
-              height: focusNode1.hasFocus ? 0 : 200,
+              height: focusNode1.hasFocus || focusNode2.hasFocus ? 0 : 200,
               child: Image.asset(
                 'assets/images/login.png',
                 scale: 1.3,
@@ -110,6 +111,7 @@ class _LoginState extends State<Login> {
                         validator: (v) {
                           return v.trim().isNotEmpty ? null : "密码不能少于6位";
                         },
+                        focusNode: focusNode2
                       ),
                     ),
                     Container(

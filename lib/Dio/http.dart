@@ -14,10 +14,9 @@ final dio = Dio(BaseOptions(
 tokenInter(){
   dio.interceptors.add(InterceptorsWrapper(
       onRequest:(RequestOptions options){
-        print("请求了------------------->");
         // 在发送请求之前做一些预处理
-        //我这边是在发送前到SharedPreferences（本地存储）中取出token的值，然后添加到请求头中
-        //dio.lock()是先锁定请求不发送出去，当整个取值添加到请求头后再dio.unlock()解锁发送出去
+        // 我这边是在发送前到SharedPreferences（本地存储）中取出token的值，然后添加到请求头中
+        // dio.lock()是先锁定请求不发送出去，当整个取值添加到请求头后再dio.unlock()解锁发送出去
         dio.lock();
         Future<dynamic> future = Future(()async{
           SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -46,11 +45,11 @@ Future main({String url = '', String type = "get", Map<String,dynamic>data}) asy
   tokenInter();
   // 将请求类型 转为 大写
   type = type.toUpperCase();
-  // 请求 参数 转换, 为 restful 使用
+  // 请求参数转换, 为 restful 使用
   data.containsKey('id') ? url = url + '/' + data['id'] : url = url;
-  // 打印 请求 参数
+  // 打印请求参数
   print('请求参数: url:$url,type:$type,body:$data');
-
+  // 提交测试
   /**
    * @date: 2020/7/3
    * @author: Gleason
@@ -72,8 +71,6 @@ Future main({String url = '', String type = "get", Map<String,dynamic>data}) asy
    */
   if (type == "GET"){
     List getParams = [];
-    // ignore: unnecessary_statements
-
     if (data.containsKey('param')) {
       data['param'].forEach((k,v)=> getParams.add("$k=$v"));
       String str =  getParams.join('&');
@@ -114,5 +111,4 @@ Future main({String url = '', String type = "get", Map<String,dynamic>data}) asy
     }).catchError((err) => throw Exception("$url: ----->$err"));
     return response.data;
   }
-
 }
