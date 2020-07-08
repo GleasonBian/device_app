@@ -2,10 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_template/Dio/interface.dart';
-import 'package:flutter_template/config/config.dart';
 import 'package:flutter_template/public/local_store.dart';
 import 'package:flutter_template/router/application.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   @override
