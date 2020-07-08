@@ -1,7 +1,8 @@
-import '../common/base_state.dart';
+import 'package:flutter_template/public/click_widget.dart';
+import 'package:flutter_template/public/list_helper_widget.dart';
+import 'package:flutter_template/public/base_state.dart';
 import 'package:flutter/material.dart';
-import '../components/click_widget.dart';
-import '../components/list_helper_widget.dart';
+
 
 /// 加油计划页面
 class RefuelPlanPage extends StatefulWidget {

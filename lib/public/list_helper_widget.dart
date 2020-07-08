@@ -1,5 +1,5 @@
-import './click_widget.dart';
-import './multi_state_widget.dart';
+import 'click_widget.dart';
+import 'multi_state_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 

@@ -3,16 +3,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_template/config/config.dart';
 import 'package:flutter_template/public/local_store.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 final dio = Dio(BaseOptions(
   baseUrl: ENV.baseUrl,
   connectTimeout: 5000,
   receiveTimeout: 100000,
   contentType:"application/json; charset=utf-8",
-  headers: {
-
-  }
 ));
 
 tokenInter(){
