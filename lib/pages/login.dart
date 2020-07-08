@@ -16,7 +16,7 @@ class _LoginState extends State<Login> {
   TextEditingController _userIdController = TextEditingController();
   TextEditingController _passWordController = TextEditingController();
 
-  //声明焦点(1/4)
+  //声明焦点
   FocusNode focusNode1 = new FocusNode();
   FocusNode focusNode2 = new FocusNode();
   @override
@@ -134,6 +134,7 @@ class _LoginState extends State<Login> {
 
   _onLogin() async{
       if((_formKey.currentState as FormState).validate()){
+
         Map response = await Fetch.login({'userid':_userIdController.text, 'password':_passWordController.text});
         if (response['Data'] != null){
           Application.router.navigateTo(context, "/index");
