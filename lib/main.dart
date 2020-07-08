@@ -1,5 +1,3 @@
-
-
 /*
  *                                |~~~~~~~|
  *                                |       |
@@ -43,23 +41,12 @@
  *                                |       |
  */
 
-/*
- * @Descripttion: 
- * @Author: LF
- * @Date: 2020-07-08 13:35:38
- * @LastEditTime: 2020-07-08 16:57:55
- */
-
-/// 项目入口文件
-
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 
 import 'package:flutter_template/config/config.dart';
-import 'package:flutter_template/index.dart';
 import 'package:flutter_template/router/routers.dart';
 import 'package:flutter_template/router/application.dart';
-
 import 'package:flutter_template/pages/login.dart';
 
 class MyApp extends StatelessWidget {
@@ -79,6 +66,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 /*
  *                   江城子 . 程序员之歌
  * 

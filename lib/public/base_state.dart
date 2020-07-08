@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 
-/// State基类,封装了常用的界面交互的方法
 ///
+/// State基类,封装了常用的界面交互的方法
 /// author: shijian   email: shijianit@163.com
+///
+
 abstract class BaseState<T extends StatefulWidget> extends State<T> {
   /// 网络请求的取消Token
   var cancelToken;

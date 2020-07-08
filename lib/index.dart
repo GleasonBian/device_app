@@ -2,9 +2,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/Dio/interface.dart';
 import 'package:flutter_template/pages/four.dart';
-import 'package:flutter_template/pages/one.dart';
+import 'package:flutter_template/pages/workbench.dart';
 import 'package:flutter_template/pages/three.dart';
 import 'package:flutter_template/pages/two.dart';
 
@@ -38,9 +37,9 @@ class _IndexPageState extends State<IndexPage> {
           _currentIndex = val;
         }),
         children: [
-          PageOne(),
+//          PageOne(),
           RefuelPlanPage(),
-          PageThree(),
+//          PageThree(),
           PageFour()
         ],
       ),
@@ -60,25 +59,25 @@ class _IndexPageState extends State<IndexPage> {
         type: BottomNavigationBarType.fixed,
         items: [
           // 注意 index 从 0 开始
+//          BottomNavigationBarItem(
+//            icon: Icon( Icons.home,  color: _defaultColor),
+//            activeIcon: Icon( Icons.home, color: _activeColor ),
+//            title: Text('ONE',style: TextStyle(color: _currentIndex != 0 ? _defaultColor : _activeColor )),
+//          ),
           BottomNavigationBarItem(
-            icon: Icon( Icons.home,  color: _defaultColor),
-            activeIcon: Icon( Icons.home, color: _activeColor ),
-            title: Text('ONE',style: TextStyle(color: _currentIndex != 0 ? _defaultColor : _activeColor )),
+            icon: Icon( Icons.computer,  color: _defaultColor),
+            activeIcon: Icon( Icons.computer, color: _activeColor ),
+            title: Text('工作台',style: TextStyle(color: _currentIndex != 0 ? _defaultColor : _activeColor )),
           ),
-          BottomNavigationBarItem(
-            icon: Icon( Icons.search,  color: _defaultColor),
-            activeIcon: Icon( Icons.search, color: _activeColor ),
-            title: Text('TWO',style: TextStyle(color: _currentIndex != 1 ? _defaultColor : _activeColor )),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon( Icons.camera_alt,  color: _defaultColor),
-            activeIcon: Icon( Icons.camera_alt, color: _activeColor ),
-            title: Text('THREE',style: TextStyle(color: _currentIndex != 2 ? _defaultColor : _activeColor )),
-          ),
+//          BottomNavigationBarItem(
+//            icon: Icon( Icons.camera_alt,  color: _defaultColor),
+//            activeIcon: Icon( Icons.camera_alt, color: _activeColor ),
+//            title: Text('THREE',style: TextStyle(color: _currentIndex != 2 ? _defaultColor : _activeColor )),
+//          ),
           BottomNavigationBarItem(
             icon: Icon( Icons.account_circle,  color: _defaultColor),
             activeIcon: Icon( Icons.account_circle, color: _activeColor ),
-            title: Text('FOUR',style: TextStyle(color: _currentIndex != 3 ? _defaultColor : _activeColor )),
+            title: Text('我的',style: TextStyle(color: _currentIndex != 1 ? _defaultColor : _activeColor )),
           ),
         ],
       ),
@@ -86,9 +85,5 @@ class _IndexPageState extends State<IndexPage> {
   }
 
   void loadData() async{
-//    var result = await Fetch.getSingleJoke({'param': {'sid':'28654780'}});
-//    setState(() {
-//      data = result.toString();
-//    });
   }
 }
