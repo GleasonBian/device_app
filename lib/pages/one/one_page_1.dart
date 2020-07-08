@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_template/Dio/interface.dart';
 
 
 class OnePage1 extends StatelessWidget {
@@ -54,7 +55,7 @@ class OnePage1 extends StatelessWidget {
                   }
                 },
                 child: Text(
-                  "OK",
+                  "请点我",
                   style: TextStyle(
                     fontSize: 18.0,
 //                    color: ColorHelpers.blackOrWhiteContrastColor(color),
@@ -66,5 +67,9 @@ class OnePage1 extends StatelessWidget {
         ],
       ),
     );
+  }
+  void loadData() async{
+//    var result = await Fetch.equipment();
+//    print("result: $result");
   }
 }

@@ -2,6 +2,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_template/Dio/interface.dart';
 import 'package:flutter_template/router/application.dart';
 
 
@@ -133,8 +134,9 @@ class _PageOneState extends State<PageOne> {
 
       if (result != null) {
         route = "$route&result=$result";
-      }
 
+      }
+      loadData();
       Application.router.navigateTo(context, route,).then((result) {
         if (key == "pop-result") {
           Application.router.navigateTo(context, "/demo/func?message=$result");
@@ -166,5 +168,9 @@ class _PageOneState extends State<PageOne> {
       message = Uri.encodeComponent("您点击了功能按钮！");
       Application.router.navigateTo(context, "/demo/func?message=$message");
     }
+  }
+  void loadData() async{
+    var result = await Fetch.overview({'id':'c50dc1de-86e1-4b85-8ff9-f710055d7d9a'});
+    print("result: $result");
   }
 }

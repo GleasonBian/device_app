@@ -86,9 +86,9 @@ class _IndexPageState extends State<IndexPage> {
   }
 
   void loadData() async{
-    var result = await Fetch.getSingleJoke({'param': {'sid':'28654780'}});
-    setState(() {
-      data = result.toString();
-    });
+//    var result = await Fetch.getSingleJoke({'param': {'sid':'28654780'}});
+//    setState(() {
+//      data = result.toString();
+//    });
   }
 }
