@@ -21,12 +21,17 @@ class _PageFourState extends State<PageFour> {
               trailing: new Icon(Icons.arrow_forward_ios)
           ),
           ListTile(
-              leading:new Icon(Icons.supervisor_account,color: Colors.yellow,),
+              leading:new Icon(Icons.supervisor_account,color: Colors.blue,),
               title:Text('关于我们'),
               trailing: new Icon(Icons.arrow_forward_ios)
           ),
           ListTile(
-              leading:new Icon(Icons.supervisor_account,color: Colors.blue,),
+              leading:new Icon(Icons.vpn_key,color: Colors.blue,),
+              title:Text('修改密码'),
+              trailing: new Icon(Icons.arrow_forward_ios)
+          ),
+          ListTile(
+              leading:new Icon(Icons.exit_to_app,color: Colors.blue,),
               title:Text('安全退出'),
               trailing: new Icon(Icons.arrow_forward_ios)
           )
