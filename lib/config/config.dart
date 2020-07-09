@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 ///
 /// 项目中 通过 ENV 获取环境变量
 ///
-const _themes = <MaterialColor>[
-  Colors.blue,
-  Colors.cyan,
-  Colors.teal,
-  Colors.green,
-  Colors.red,
-];
+
 class ENV extends InheritedWidget {
   static String appName; // 系统名称
   static String envName; // 运行环境
   static String baseUrl; // 基础url
-  static List<MaterialColor> get themes => _themes;
 
   ENV({
     @required String appName,
@@ -26,8 +20,6 @@ class ENV extends InheritedWidget {
     ENV.envName = envName;
     ENV.baseUrl = baseUrl;
   }
-
-//  static saveProfile() => _prefs.setString("profile", jsonEncode(profile.toJson()));
   static ENV of(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType(aspect: ENV);
   }
@@ -35,3 +27,15 @@ class ENV extends InheritedWidget {
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => false;
 }
+
+Future<int> getTheme() async {
+  SharedPreferences sp = await SharedPreferences.getInstance();
+  int themeIndex = sp.getInt("themeIndex");
+  if (themeIndex != null) {
+    return themeIndex;
+  }
+  return 0;
+}
+
+
+

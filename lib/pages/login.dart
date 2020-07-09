@@ -36,7 +36,7 @@ class _LoginState extends State<Login> {
           shrinkWrap: true,
           children: [
             Container(
-              color: Colors.blue,
+              color:Theme.of(context).primaryColor,
               height: focusNode1.hasFocus || focusNode2.hasFocus ? 0 : 200,
               child: Image.asset(
                 'assets/images/login.png',

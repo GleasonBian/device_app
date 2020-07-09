@@ -23,7 +23,6 @@ tokenInter(){
           return result;
         });
         return future.then((value) {
-          print("value-----> ${value.runtimeType}");
           if (value != null)  options.headers["Authorization"] = value;
           return options;
         }).whenComplete(() => dio.unlock()); // unlock the dio

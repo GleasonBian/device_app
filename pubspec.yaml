@@ -19,6 +19,7 @@ dependencies:
   pull_to_refresh: ^1.6.0
   fluttertoast: ^4.0.0
   flutter_custom_dialog: ^1.0.20
+  scoped_model: ^1.0.1
 
 dev_dependencies:
   flutter_test:

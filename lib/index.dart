@@ -15,9 +15,7 @@ class IndexPage extends StatefulWidget {
 
 class _IndexPageState extends State<IndexPage> {
   dynamic data;
-  // 定义 颜色常量
-  final _defaultColor = Colors.grey;
-  final _activeColor = Colors.blue;
+
   // 当前页面
   int _currentIndex = 0;
   // 页面控制器
@@ -29,6 +27,9 @@ class _IndexPageState extends State<IndexPage> {
 
   @override
   Widget build(BuildContext context) {
+    // 定义 颜色常量
+    final _defaultColor = Colors.grey;
+    final _activeColor = Theme.of(context).primaryColor;
     return Scaffold (
 
       body: PageView(
