@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_template/Dio/interface.dart';
+import 'package:flutter_template/config/config.dart';
 import 'package:flutter_template/public/local_store.dart';
 import 'package:flutter_template/router/application.dart';
 
@@ -137,8 +138,12 @@ class _LoginState extends State<Login> {
 
         Map response = await Fetch.login({'userid':_userIdController.text, 'password':_passWordController.text});
         if (response['Data'] != null){
+
           Application.router.navigateTo(context, "/index");
           LocalStore.setString('Authorization',response['Data']);
+        } else {
+          print("response:$response");
+          showToast(response['message']);
         }
       }else{
         print(2);

@@ -40,7 +40,7 @@ class _IndexPageState extends State<IndexPage> {
         children: [
 //          PageOne(),
           RefuelPlanPage(),
-//          PageThree(),
+          CounterApp(),
           PageFour()
         ],
       ),
@@ -70,15 +70,15 @@ class _IndexPageState extends State<IndexPage> {
             activeIcon: Icon( Icons.computer, color: _activeColor ),
             title: Text('工作台',style: TextStyle(color: _currentIndex != 0 ? _defaultColor : _activeColor )),
           ),
-//          BottomNavigationBarItem(
-//            icon: Icon( Icons.camera_alt,  color: _defaultColor),
-//            activeIcon: Icon( Icons.camera_alt, color: _activeColor ),
-//            title: Text('THREE',style: TextStyle(color: _currentIndex != 2 ? _defaultColor : _activeColor )),
-//          ),
+          BottomNavigationBarItem(
+            icon: Icon( Icons.camera_alt,  color: _defaultColor),
+            activeIcon: Icon( Icons.camera_alt, color: _activeColor ),
+            title: Text('测试model',style: TextStyle(color: _currentIndex != 1 ? _defaultColor : _activeColor )),
+          ),
           BottomNavigationBarItem(
             icon: Icon( Icons.account_circle,  color: _defaultColor),
             activeIcon: Icon( Icons.account_circle, color: _activeColor ),
-            title: Text('我的',style: TextStyle(color: _currentIndex != 1 ? _defaultColor : _activeColor )),
+            title: Text('我的',style: TextStyle(color: _currentIndex != 2 ? _defaultColor : _activeColor )),
           ),
         ],
       ),

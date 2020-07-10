@@ -50,24 +50,18 @@
  * ..................................&..............................
  */
 
-
-
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
-
-import 'package:flutter_template/config/config.dart';
 import 'package:flutter_template/config/theme.dart';
 import 'package:flutter_template/models/main_state_model.dart';
-import 'package:flutter_template/public/local_store.dart';
 import 'package:flutter_template/router/routers.dart';
 import 'package:flutter_template/router/application.dart';
 import 'package:flutter_template/pages/login.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 
-
-
 class App extends StatefulWidget {
+
   final int themeIndex;
 
   App(this.themeIndex);
@@ -87,10 +81,7 @@ class _AppState extends State<App> {
     final Router router = Router();
     Routes.configureRoutes(router);
     Application.router = router;
-
   }
-
-
 
   @override
   Widget build(BuildContext context) {
