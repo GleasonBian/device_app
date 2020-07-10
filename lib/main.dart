@@ -56,25 +56,59 @@ import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 
 import 'package:flutter_template/config/config.dart';
+import 'package:flutter_template/config/theme.dart';
+import 'package:flutter_template/models/main_state_model.dart';
+import 'package:flutter_template/public/local_store.dart';
 import 'package:flutter_template/router/routers.dart';
 import 'package:flutter_template/router/application.dart';
 import 'package:flutter_template/pages/login.dart';
+import 'package:scoped_model/scoped_model.dart';
 
-class MyApp extends StatelessWidget {
+
+
+
+class App extends StatefulWidget {
+  final int themeIndex;
+
+  App(this.themeIndex);
+
+  @override
+  _AppState createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  dynamic subscription;
+  MainStateModel mainStateModel;
+
+  @override
+  void initState() {
+    super.initState();
+    mainStateModel = MainStateModel();
+    final Router router = Router();
+    Routes.configureRoutes(router);
+    Application.router = router;
+
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
-    // 在任何地方调用AppConfig.of（context）以获取特定于环境的配置
-    //var config = AppConfig.of(context);
-    // 初始化 fluro
-    final router = Router();
-    Routes.configureRoutes(router);
-    // 路由静态化
-    Application.router = router;
-    return new MaterialApp(
-      title: ENV.appName,
-      onGenerateRoute: Application.router.generator,
-      home: Login(),
-    );
+    return ScopedModel<MainStateModel>(
+        model: mainStateModel,
+        child: ScopedModelDescendant<MainStateModel>(
+          builder: (context, child, model) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false, // 去除 DEBUG 标签
+              theme: ThemeData(
+                  platform: TargetPlatform.iOS,
+                  primaryColor: themeList[model.themeIndex != null ? model.themeIndex : widget.themeIndex],
+              ),
+              home: Login(),
+              onGenerateRoute: Application.router.generator,
+            );
+          },
+        ));
   }
 }
 
