@@ -43,15 +43,15 @@ Future<int> getTheme() async {
  * @author: Gleason
  * @content: showToast("删除成功！");
  */
-void showToast(String text, {gravity: ToastGravity.CENTER, toastLength: Toast.LENGTH_SHORT}) {
-  Fluttertoast.showToast(
-    msg: text, // 显示消息
-    toastLength: Toast.LENGTH_SHORT, // 显示
-    gravity: ToastGravity.TOP, // 位置
-    backgroundColor: Colors.grey[600], // 背景
-    fontSize: 16.0, // 大小
-  );
-}
+//void showToast(String text, {gravity: ToastGravity.CENTER, toastLength: Toast.LENGTH_SHORT}) {
+//  Fluttertoast.showToast(
+//    msg: text, // 显示消息
+//    toastLength: Toast.LENGTH_SHORT, // 显示
+//    gravity: ToastGravity.TOP, // 位置
+//    backgroundColor: Colors.grey[600], // 背景
+//    fontSize: 16.0, // 大小
+//  );
+//}
 
 /**
  * @date: 2020/7/10 10:42
@@ -142,4 +142,163 @@ void showConfirmDialog(BuildContext context,String content, Function confirmCall
 }
 
 
+/**
+ * @date: 2020/7/10 17:29
+ * @author: Gleason
+ * @content: 全局key
+ */
+final GlobalKey<_AppContainerFinderState> _keyFinder = GlobalKey(debugLabel: 'overlay_support');
+/// 全局overlayState
+OverlayState get _overlayState{
+  final context = _keyFinder.currentContext;
+  if (context == null) return null;
+  NavigatorState navigator;
+  void visitor(Element element) {
+    if (navigator != null) return;
+    /// 如果是一个页面路由
+    if (element.widget is Navigator) {
+      /// navigator返回他的state
+      navigator = (element as StatefulElement).state;
+    } else {
+      /// 否则递归
+      element.visitChildElements(visitor);
+    }
+  }
+  /// 就是总能找到最后一页的overlay
+  context.visitChildElements(visitor);
+  return navigator.overlay;
+}
+
+/// 静态app容器
+class AppContainer extends StatelessWidget {
+  final Widget child;
+  AppContainer({this.child});
+  @override
+  Widget build(BuildContext context) {
+    return AppContainerFinder(child: child, key: _keyFinder);
+  }
+}
+/// 动态app容器内容
+class AppContainerFinder extends StatefulWidget {
+  final Widget child;
+  @override
+  AppContainerFinder({Key key,this.child}) : super(key: key);
+  _AppContainerFinderState createState() => _AppContainerFinderState();
+}
+
+class _AppContainerFinderState extends State<AppContainerFinder> {
+  @override
+  Widget build(BuildContext context) {
+    return widget.child;
+  }
+}
+
+/**
+ * @date: 2020/7/10 17:28
+ * @author: Gleason
+ * @content: 土司提示
+ */
+showToast(msg) {
+  OverlayEntry overlayEntry = OverlayEntry(builder: (context) {
+    //外层使用Positioned进行定位，控制在Overlay中的位置
+    return Positioned(
+        top: MediaQuery.of(context).size.height * 0.7,
+        child: Material(
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            alignment: Alignment.center,
+            child: Center(
+              child: Card(
+                child: Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Text(msg),
+                ),
+                color: Colors.grey,
+              ),
+            ),
+          ),
+        ));
+  });
+  //往Overlay中插入插入OverlayEntry
+  _overlayState.insert(overlayEntry);
+  //两秒后，移除Toast
+  Future.delayed(Duration(seconds: 2)).then((value) {
+    overlayEntry.remove();
+  });
+}
+
+/**
+ * @date: 2020/7/10 17:30
+ * @author: Gleason
+ * @content: showModal 仿微信API
+ */
+showModal(String msg, {onConfirm, onCancel}) {
+  OverlayEntry overlayEntry;
+  overlayEntry = OverlayEntry(builder: (context) {
+    //外层使用Positioned进行定位，控制在Overlay中的位置
+    return Container(
+      color: Color(0x66333333),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              color: Colors.white,
+              height: 100,
+              width: MediaQuery.of(context).size.width * 0.8,
+              alignment: Alignment.center,
+              child: Text('$msg', style: TextStyle(
+                  decoration: TextDecoration.none,
+                  color: Color(0xff333333),
+                  fontWeight: FontWeight.normal,
+                  fontSize: 16.0
+              ),),
+            ),
+            SizedBox(
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: Material(
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: InkWell(
+                            child: Container(
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.all(20),
+                              child: Text('取消'),
+                            ),
+                            onTap: () {
+                              overlayEntry.remove();
+                              return onCancel != null ? onCancel() : false;
+                            },
+                          ),
+                        ),
+                        Expanded(
+                          child: InkWell(
+                            child: Container(
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.all(20),
+                              child: Text('确定'),
+                            ),
+                            onTap: () {
+                              overlayEntry.remove();
+                              return onConfirm != null ? onConfirm() : false;
+                            },
+                          ),
+                        ),
+
+                      ],
+                    ))
+            )
+          ],
+        ),
+      ),
+    );
+  });
+  //往Overlay中插入插入OverlayEntry
+  _overlayState.insert(overlayEntry);
+  //两秒后，移除Toast
+  // Future.delayed(Duration(seconds: 2)).then((value) {
+  //   overlayEntry.remove();
+  // });
+}
 

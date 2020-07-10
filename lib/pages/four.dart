@@ -6,6 +6,7 @@ import 'package:flutter_template/config/config.dart';
 import 'package:flutter_template/models/main_state_model.dart';
 import 'package:flutter_template/public/local_store.dart';
 import 'package:flutter_template/main.dart';
+import 'package:flutter_template/router/application.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 class PageFour extends StatefulWidget {
   @override
@@ -44,6 +45,7 @@ class _PageFourState extends State<PageFour> {
           ListTile(
               leading:new Icon(Icons.exit_to_app,color: Colors.blue,),
               title:Text('安全退出'),
+              onTap: () => Application.router.navigateTo(context, "/demo"),
               trailing: new Icon(Icons.arrow_forward_ios)
           ),
         ]).toList(),
@@ -93,5 +95,10 @@ class _PageFourState extends State<PageFour> {
     ).then((val) {
       print(val);
     });
+  }
+
+  void _signOut() {
+    print("调用");
+
   }
 }

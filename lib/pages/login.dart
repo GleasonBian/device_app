@@ -95,7 +95,7 @@ class _LoginState extends State<Login> {
                           border: InputBorder.none,
                           suffixIcon: IconButton(
                             icon: Icon(pwdShow
-                                ? Icons.videocam_off
+                                ? Icons.visibility_off
                                 : Icons.visibility),
                             onPressed: () {
                               setState(
@@ -138,7 +138,6 @@ class _LoginState extends State<Login> {
 
         Map response = await Fetch.login({'userid':_userIdController.text, 'password':_passWordController.text});
         if (response['Data'] != null){
-
           Application.router.navigateTo(context, "/index");
           LocalStore.setString('Authorization',response['Data']);
         } else {

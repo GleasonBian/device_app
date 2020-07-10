@@ -17,6 +17,7 @@ tokenInter(){
         // 在发送请求之前做一些预处理
         // 我这边是在发送前到SharedPreferences（本地存储）中取出token的值，然后添加到请求头中
         // dio.lock()是先锁定请求不发送出去，当整个取值添加到请求头后再dio.unlock()解锁发送出去
+
         dio.lock();
         Future<dynamic> future = Future(()async{
           Future<String> result = LocalStore.getString('Authorization');
@@ -40,17 +41,16 @@ tokenInter(){
 }
 
 Future main({String url = '', String type = "get", Map<String,dynamic>data}) async {
-  // 设置请求 token
-  tokenInter();
 
+  tokenInter();
   // 将请求类型 转为 大写
   type = type.toUpperCase();
-
   // 打印请求参数
   print('请求参数: url:$url,type:$type,body:$data');
 
   // 请求参数转换, 为 restful 使用
     data.containsKey('id') ? url = url + '/' + data['id'] : url = url;
+  // 提交测试
   /**
    * @date: 2020/7/3
    * @author: Gleason
@@ -61,7 +61,7 @@ Future main({String url = '', String type = "get", Map<String,dynamic>data}) asy
     await dio.post(url,data: data).then((res) {
       response = res;
       print("$url-$type: ------>$res");
-    }).catchError((err) => throw Exception("接口:$url: --> $err"));
+    }).catchError((err) => throw Exception("$url: ----->$err"));
     return response.data;
   }
 
@@ -113,3 +113,7 @@ Future main({String url = '', String type = "get", Map<String,dynamic>data}) asy
     return response.data;
   }
 }
+
+
+
+
