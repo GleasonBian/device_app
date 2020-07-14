@@ -213,7 +213,7 @@ class ListHelperState extends State<ListHelperWidget>{
               alignment: Alignment.bottomRight,
               child: ClickWidget(
                 backgroundColor: Colors.white,
-                splashColor: Colors.blue,
+                splashColor: Theme.of(context).primaryColor,
                 radius: 50,
                 child: Image.asset("assets/main/images/list-helper-top.png"),
                 onClick: ()=> scrollController.animateTo(0, duration: Duration(milliseconds: 250), curve: Curves.ease),

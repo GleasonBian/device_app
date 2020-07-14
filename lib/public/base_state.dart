@@ -78,7 +78,7 @@ abstract class BaseState<T extends StatefulWidget> extends State<T> {
       ..borderRadius = 4.0
       ..circularProgress(
         padding: EdgeInsets.all(24.0),
-        valueColor: Colors.blue,
+        valueColor: Theme.of(context).primaryColor,
       )
       ..text(
         padding: EdgeInsets.fromLTRB(18.0, 0.0, 18.0, 12.0),
