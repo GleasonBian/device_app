@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_template/Dio/interface.dart';
-import 'package:flutter_template/config/config.dart';
 import 'package:flutter_template/public/local_store.dart';
-import 'package:flutter_template/router/application.dart';
 import 'package:flutter_template/router/navigator_util.dart';
 import 'package:flutter_template/router/routers.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -18,10 +18,13 @@ class _LoginState extends State<Login> {
   bool pwdShow = false; //密码是否明文
   TextEditingController _userIdController = TextEditingController();
   TextEditingController _passWordController = TextEditingController();
-
+  var check = false;
   //声明焦点
   FocusNode focusNode1 = new FocusNode();
   FocusNode focusNode2 = new FocusNode();
+
+  // 记住密码
+  var pwdState;
   @override
   void initState() {
   }
@@ -96,15 +99,11 @@ class _LoginState extends State<Login> {
                           prefixIcon: Icon(Icons.lock),
                           border: InputBorder.none,
                           suffixIcon: IconButton(
-                            icon: Icon(pwdShow
-                                ? Icons.visibility_off
-                                : Icons.visibility),
+                            icon: Icon(pwdShow ? Icons.visibility_off : Icons.visibility),
                             onPressed: () {
-                              setState(
-                                () {
-                                  pwdShow = !pwdShow;
-                                },
-                              );
+                              setState(() {
+                                pwdShow = !pwdShow;
+                              });
                             },
                           ),
                         ),
@@ -117,6 +116,18 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     Container(
+                      padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+                      child: CheckboxListTile(
+                        title: const Text('记住账号密码'),
+                        value: this.check,
+                        onChanged: (bool value) {
+                          setState(() {
+                            this.check = !this.check;
+                          });
+                        },
+                      ),
+                    ),
+                    Container(
                       padding: EdgeInsets.only(top: 10),
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: RaisedButton(
@@ -125,7 +136,7 @@ class _LoginState extends State<Login> {
                         child: Text("登  录"),
                         onPressed: _onLogin,
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -137,17 +148,36 @@ class _LoginState extends State<Login> {
 
   _onLogin() async{
       if((_formKey.currentState as FormState).validate()){
-
         Map response = await Fetch.login({'userid':_userIdController.text, 'password':_passWordController.text});
         if (response['Data'] != null){
           jump.push(context, Routes.index,replace:true);
           LocalStore.setString('Authorization',response['Data']);
         } else {
-          print("response:$response");
-          showToast(response['message']);
+          EasyLoading.showInfo(response['message']);
         }
       }else{
-        print(2);
+        EasyLoading.showInfo('请输入账号密码!');
       }
+  }
+
+  Future _validateLogin() async{
+    Future<dynamic> future = Future(()async{
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      return prefs.getString("Authorization");
+    });
+    future.then((val){
+      if(val == null){
+        setState(() {
+          pwdState = 0;
+        });
+      }else{
+        setState(() {
+          pwdState = 1;
+        });
+      }
+    }).catchError((_){
+      EasyLoading.showError('登录状态失效!');
+      jump.push(context, Routes.root,replace:true);
+    });
   }
 }

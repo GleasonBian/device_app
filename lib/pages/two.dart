@@ -21,15 +21,6 @@ class PageState extends BaseState<RefuelPlanPage> {
   var listHelperControl = ListHelperControl();
   List list = [];
   void onLoad(int page) {
-//    ApiAssignment.getAssigndList(this, params, ApiCallback(success: (data) {
-////      var total = data["total"];
-////      var list = data["list"];
-//      var list = ["a","b","c"];
-//      listHelperControl.loadSuccess(list, 10);
-//    },failed: (code, msg) {
-//      listHelperControl.loadFail(msg);
-//    }));
-
     Future.delayed(Duration(milliseconds: 2000), () {
       //模拟网络请求结果
       List list = [];
@@ -90,7 +81,6 @@ class PageState extends BaseState<RefuelPlanPage> {
                 onLoad: onLoad,
                 itemBuilder: (context, index, list) {
                   Map data = list[index];
-                  print(data);
                   var textEditCtrl;
                   return Column(
                     children: <Widget>[

@@ -1,12 +1,13 @@
 
 /// 这里封装的 请求方法 支持 restful 规范
 import 'package:dio/dio.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_template/config/config.dart';
 import 'package:flutter_template/public/local_store.dart';
 
 final dio = Dio(BaseOptions(
   baseUrl: ENV.baseUrl,
-  connectTimeout: 5000,
+  connectTimeout: 2000,
   receiveTimeout: 100000,
   contentType:"application/json; charset=utf-8",
 ));
@@ -29,27 +30,29 @@ tokenInter(){
       },
       onResponse:(Response response) async{
         // 在返回响应数据之前做一些预处理
+
         LocalStore.setString('Authorization',"${response.headers["Authorization"]}");
         return response; // continue
       },
       onError: (DioError e) {
         // 当请求失败时做一些预处理
+        EasyLoading.showError('Dio 错误!');
         return e;//continue
       }
   ));
 }
 
-Future main({String url = '', String type = "get", Map<String,dynamic>data}) async {
-
+Future main({String url = '', String type = "get", Map<String,dynamic>data, Loading=true,}) async {
+  Loading ?? EasyLoading.show(status: 'loading...');
+  // 添加请求 token
   tokenInter();
   // 将请求类型 转为 大写
   type = type.toUpperCase();
   // 打印请求参数
-  print('请求参数: url:$url,type:$type,body:$data');
-
+//  print('请求参数: url:$url,type:$type,body:$data');
   // 请求参数转换, 为 restful 使用
     data.containsKey('id') ? url = url + '/' + data['id'] : url = url;
-  // 提交测试
+
   /**
    * @date: 2020/7/3
    * @author: Gleason
@@ -59,9 +62,10 @@ Future main({String url = '', String type = "get", Map<String,dynamic>data}) asy
     Response response;
     await dio.post(url,data: data).then((res) {
       response = res;
-      print("$url-$type: ------>$res");
     }).catchError((err) => throw Exception("$url: ----->$err"));
+    EasyLoading.dismiss();
     return response.data;
+
   }
 
   /**
@@ -79,7 +83,6 @@ Future main({String url = '', String type = "get", Map<String,dynamic>data}) asy
     Response response;
     await dio.get(url).then((res) {
       response = res;
-      print("$url: ------>$res");
     }).catchError((err) => throw Exception("$url: ----->$err"));
     return response.data;
   }
@@ -93,7 +96,6 @@ Future main({String url = '', String type = "get", Map<String,dynamic>data}) asy
     Response response;
     await dio.put(url,data:data).then((res) {
       response = res;
-      print("$url: ------>$res");
     }).catchError((err) => throw Exception("$url: ----->$err"));
     return response.data;
   }
@@ -107,7 +109,6 @@ Future main({String url = '', String type = "get", Map<String,dynamic>data}) asy
     Response response;
     await dio.delete(url,data:data).then((res) {
       response = res;
-      print("$url: ------>$res");
     }).catchError((err) => throw Exception("$url: ----->$err"));
     return response.data;
   }

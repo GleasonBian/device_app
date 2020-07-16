@@ -6,12 +6,9 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_template/config/config.dart';
 import 'package:flutter_template/models/main_state_model.dart';
-import 'package:flutter_template/public/local_store.dart';
-import 'package:flutter_template/main.dart';
-import 'package:flutter_template/router/application.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_template/router/routers.dart';
+import 'package:flutter_template/router/navigator_util.dart';
 
 class PageFour extends StatefulWidget {
   @override
@@ -63,11 +60,18 @@ class _PageFourState extends State<PageFour> {
                   color: Theme.of(context).primaryColor,
                 ),
                 title: Text('安全退出'),
-                trailing: new Icon(Icons.arrow_forward_ios)),
+                trailing: new Icon(Icons.arrow_forward_ios),
+              onTap:  _onBackPressed,
+            ),
           ]).toList(),
         ));
   }
 
+  /**
+   * @date: 2020/7/16 14:27
+   * @author: Gleason
+   * @content: 主题颜色切换
+   */
   _themeColorHandle() {
     showDialog<Null>(
       context: context,
@@ -102,13 +106,6 @@ class _PageFourState extends State<PageFour> {
                 MainStateModel.of(context).changeTheme(0);
               },
             ),
-            // new SimpleDialogOption(
-            //   padding: opation,
-            //   child: ListTile(
-            //       leading: new Icon(Icons.turned_in, color: Colors.teal),
-            //       title: Text('蓝绿色 - teal')),
-            //   onPressed: () {},
-            // ),
           ],
         );
       },
@@ -117,7 +114,31 @@ class _PageFourState extends State<PageFour> {
     });
   }
 
-  void _signOut() {
-    print("调用");
+  /**
+   * @date: 2020/7/16 14:27
+   * @author: Gleason
+   * @content: 退出程序
+   */
+  Future<bool> _onBackPressed() {
+    return showDialog(
+      context: context,
+      builder: (context) =>
+          AlertDialog(
+            title: Text('确定退出程序吗?'),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('暂不'),
+                onPressed: () => Navigator.pop(context, false),
+              ),
+              FlatButton(
+                child: Text('确定'),
+                onPressed: () => jump.push(context, Routes.root,replace:true),
+              ),
+            ],
+          ),
+    );
   }
 }
+
+
+

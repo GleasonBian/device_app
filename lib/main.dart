@@ -53,12 +53,15 @@
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter_template/config/theme.dart';
+import 'package:flutter_template/index.dart';
 import 'package:flutter_template/models/main_state_model.dart';
+import 'package:flutter_template/router/navigator_util.dart';
 import 'package:flutter_template/router/routers.dart';
 import 'package:flutter_template/router/application.dart';
 import 'package:flutter_template/pages/login.dart';
 import 'package:scoped_model/scoped_model.dart';
-
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class App extends StatefulWidget {
 
@@ -73,7 +76,7 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   dynamic subscription;
   MainStateModel mainStateModel;
-
+  var loginState;
   @override
   void initState() {
     super.initState();
@@ -89,17 +92,40 @@ class _AppState extends State<App> {
         model: mainStateModel,
         child: ScopedModelDescendant<MainStateModel>(
           builder: (context, child, model) {
-            return MaterialApp(
-              debugShowCheckedModeBanner: false, // 去除 DEBUG 标签
-              theme: ThemeData(
+            return FlutterEasyLoading(
+              child: MaterialApp(
+                debugShowCheckedModeBanner: false, // 去除 DEBUG 标签
+                theme: ThemeData(
                   platform: TargetPlatform.iOS,
                   primaryColor: themeList[model.themeIndex != null ? model.themeIndex : widget.themeIndex],
+                ),
+//                home: loginState == 0 ? Login() : IndexPage(),
+                home:  Login(),
+                onGenerateRoute: Application.router.generator,
               ),
-              home: Login(),
-              onGenerateRoute: Application.router.generator,
             );
           },
         ));
+  }
+  Future _validateLogin() async{
+    Future<dynamic> future = Future(()async{
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      return prefs.getString("Authorization");
+    });
+    future.then((val){
+      if(val == null){
+        setState(() {
+          loginState = 0;
+        });
+      }else{
+        setState(() {
+          loginState = 1;
+        });
+      }
+    }).catchError((_){
+      EasyLoading.showError('登录状态失效!');
+      jump.push(context, Routes.root,replace:true);
+    });
   }
 }
 
