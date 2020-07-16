@@ -17,7 +17,6 @@ tokenInter(){
         // 在发送请求之前做一些预处理
         // 我这边是在发送前到SharedPreferences（本地存储）中取出token的值，然后添加到请求头中
         // dio.lock()是先锁定请求不发送出去，当整个取值添加到请求头后再dio.unlock()解锁发送出去
-
         dio.lock();
         Future<dynamic> future = Future(()async{
           Future<String> result = LocalStore.getString('Authorization');

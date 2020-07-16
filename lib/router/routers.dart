@@ -1,5 +1,6 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_template/pages/login.dart';
 import 'package:flutter_template/router/router_handler.dart';
 
 class Routes {
@@ -11,10 +12,11 @@ class Routes {
   static String deepLink = "/message";
 
   static void configureRoutes(Router router) {
-    router.notFoundHandler = Handler( handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-      print("ROUTE WAS NOT FOUND !!!");
-      return;
-    });
+    router.notFoundHandler = new Handler(
+        handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+          print("ROUTE WAS NOT FOUND !!!");
+          return Login();
+        });
     router.define(root, handler: rootHandler);
     router.define(index, handler: indexHandler);
     router.define(demoSimple, handler: onePage1Handler);

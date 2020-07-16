@@ -5,6 +5,8 @@ import 'package:flutter_template/Dio/interface.dart';
 import 'package:flutter_template/config/config.dart';
 import 'package:flutter_template/public/local_store.dart';
 import 'package:flutter_template/router/application.dart';
+import 'package:flutter_template/router/navigator_util.dart';
+import 'package:flutter_template/router/routers.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -138,7 +140,7 @@ class _LoginState extends State<Login> {
 
         Map response = await Fetch.login({'userid':_userIdController.text, 'password':_passWordController.text});
         if (response['Data'] != null){
-          Application.router.navigateTo(context, "/index");
+          jump.push(context, Routes.index,replace:true);
           LocalStore.setString('Authorization',response['Data']);
         } else {
           print("response:$response");
