@@ -53,7 +53,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter_template/config/theme.dart';
-import 'package:flutter_template/index.dart';
 import 'package:flutter_template/models/main_state_model.dart';
 import 'package:flutter_template/router/navigator_util.dart';
 import 'package:flutter_template/router/routers.dart';
