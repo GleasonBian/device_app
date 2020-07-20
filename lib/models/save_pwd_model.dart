@@ -8,36 +8,34 @@ import 'package:shared_preferences/shared_preferences.dart';
  class SavePwdModel extends Model {
   String _userid;
   String _password;
-  bool _ispwd;
+  bool _ispwd = false;
 
   get userid => _userid;
   get password => _password;
   get ispwd => _ispwd;
 
-  void changeSavePwd({String userid,String password,bool ispwd}) async {
+  void changeSavePwd({String userid,String password}) async {
     _userid = userid;
     _password = password;
-    _ispwd = ispwd;
-    print('收到数据$userid,$password,$ispwd');
-    notifyListeners();
+    print('账号/密码: $userid,$password');
     SharedPreferences sp = await SharedPreferences.getInstance();
     sp.setString("userid", userid);
     sp.setString("password", password);
+    notifyListeners();
+  }
+  void changeIsPwd({bool ispwd}) async {
+    _ispwd = ispwd;
+    print('是否保存密码: $ispwd');
+    notifyListeners();
+    SharedPreferences sp = await SharedPreferences.getInstance();
     sp.setBool('ispwd', ispwd);
   }
-
-  Future<Map> getSavePwd() async {
+  void getSavePwd() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
-    String userid = sp.getString("userid");
-    String password = sp.getString("password");
-    bool ispwd = sp.getBool('ispwd');
-    if (ispwd != null && ispwd) {
-      return {
-        userid:userid,
-        password:password
-      };
-    }
-    return {};
+    _userid = sp.getString("userid");
+    _password = sp.getString("password");
+    _ispwd = sp.getBool('ispwd');
+    notifyListeners();
   }
 
   static SavePwdModel of(context) =>

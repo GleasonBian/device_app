@@ -1,7 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/pages/login.dart';
 import 'package:flutter_template/router/router_handler.dart';
+import 'package:flutter_template/views/common/login.dart';
 
 class Routes {
   static String root = "/";

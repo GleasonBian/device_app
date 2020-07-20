@@ -17,7 +17,7 @@ abstract class ThemeStateModel extends Model {
     sp.setInt("themeIndex", themeIndex);
   }
 
-  Future<int> getTheme() async {
+  static Future<int> getTheme() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     int themeIndex = sp.getInt("themeIndex");
     if (themeIndex != null) {

@@ -21,6 +21,7 @@ dependencies:
   flutter_custom_dialog: ^1.0.20
   scoped_model: ^1.0.1
   flutter_easyloading: ^1.1.4
+  provider: ^4.3.1
 
 dev_dependencies:
   flutter_test:

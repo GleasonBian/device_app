@@ -57,7 +57,7 @@ import 'package:flutter_template/models/main_state_model.dart';
 import 'package:flutter_template/router/navigator_util.dart';
 import 'package:flutter_template/router/routers.dart';
 import 'package:flutter_template/router/application.dart';
-import 'package:flutter_template/pages/login.dart';
+import 'file:///E:/device_app/lib/views/common/login.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -83,10 +83,11 @@ class _AppState extends State<App> {
     final Router router = Router();
     Routes.configureRoutes(router);
     Application.router = router;
+
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
     return ScopedModel<MainStateModel>(
         model: mainStateModel,
         child: ScopedModelDescendant<MainStateModel>(

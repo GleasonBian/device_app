@@ -4,8 +4,8 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_template/index.dart';
-import 'package:flutter_template/pages/login.dart';
-import 'package:flutter_template/pages/one/one_page_1.dart';
+import 'package:flutter_template/views/common/login.dart';
+
 /**
  * @date: 2020/7/16 10:36
  * @author: Gleason
@@ -19,7 +19,7 @@ var onePage1Handler = Handler(handlerFunc: (BuildContext context, Map<String, Li
   if (colorHex != null && colorHex.length > 0) {
 //    color = Color(ColorHelpers.fromHexString(colorHex));
   }
-  return OnePage1(message: message, color: color, result: result);
+  return Login();
 });
 
 /**

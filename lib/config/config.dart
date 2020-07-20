@@ -29,14 +29,3 @@ class ENV extends InheritedWidget {
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => false;
 }
-
-Future<int> getTheme() async {
-  SharedPreferences sp = await SharedPreferences.getInstance();
-  int themeIndex = sp.getInt("themeIndex");
-  if (themeIndex != null) {
-    return themeIndex;
-  }
-  return 0;
-}
-
-

@@ -2,10 +2,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/pages/four.dart';
-import 'package:flutter_template/pages/workbench.dart';
-import 'package:flutter_template/pages/three.dart';
-import 'package:flutter_template/pages/two.dart';
+import 'package:flutter_template/views/common/setting.dart';
+import 'package:flutter_template/views/two.dart';
 
 
 class IndexPage extends StatefulWidget {
@@ -18,10 +16,10 @@ class _IndexPageState extends State<IndexPage> {
 
   // 当前页面
   int _currentIndex = 0;
+
   // 页面控制器
   final  PageController _controller = PageController (
-    // 初始页面
-    initialPage: 0,
+    initialPage: 0,// 初始页面
   );
 
 
@@ -38,10 +36,8 @@ class _IndexPageState extends State<IndexPage> {
           _currentIndex = val;
         }),
         children: [
-//          PageOne(),
           RefuelPlanPage(),
-          CounterApp(),
-          PageFour()
+          settingPage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -70,15 +66,15 @@ class _IndexPageState extends State<IndexPage> {
             activeIcon: Icon( Icons.computer, color: _activeColor ),
             title: Text('工作台',style: TextStyle(color: _currentIndex != 0 ? _defaultColor : _activeColor )),
           ),
-          BottomNavigationBarItem(
-            icon: Icon( Icons.camera_alt,  color: _defaultColor),
-            activeIcon: Icon( Icons.camera_alt, color: _activeColor ),
-            title: Text('测试model',style: TextStyle(color: _currentIndex != 1 ? _defaultColor : _activeColor )),
-          ),
+//          BottomNavigationBarItem(
+//            icon: Icon( Icons.camera_alt,  color: _defaultColor),
+//            activeIcon: Icon( Icons.camera_alt, color: _activeColor ),
+//            title: Text('测试model',style: TextStyle(color: _currentIndex != 1 ? _defaultColor : _activeColor )),
+//          ),
           BottomNavigationBarItem(
             icon: Icon( Icons.account_circle,  color: _defaultColor),
             activeIcon: Icon( Icons.account_circle, color: _activeColor ),
-            title: Text('我的',style: TextStyle(color: _currentIndex != 2 ? _defaultColor : _activeColor )),
+            title: Text('我的',style: TextStyle(color: _currentIndex != 1 ? _defaultColor : _activeColor )),
           ),
         ],
       ),
