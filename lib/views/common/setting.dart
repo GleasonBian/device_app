@@ -132,7 +132,7 @@ class _settingPageState extends State<settingPage> {
               ),
               FlatButton(
                 child: Text('确定'),
-                onPressed: () => jump.push(context, Routes.root,replace:true),
+                onPressed: ()=>jump.push(context, Routes.root, replace: true,clearStack : true) ,
               ),
             ],
           ),

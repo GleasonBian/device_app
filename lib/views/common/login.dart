@@ -84,8 +84,8 @@ class _LoginState extends State<Login> {
               child: ScopedModelDescendant<SavePwdModel>(
                builder: (context, child, model) {
                  // 保存密码从本地获取
-                 model.userid == '' ? '' : _userIdController.text = model.userid;
-                 model.password == '' ? '' : _passWordController.text = model.password;
+                 model.userid == ''|| model.userid == null ? '' : _userIdController.text = model.userid;
+                 model.password == ''||model.password == null ? '' : _passWordController.text = model.password;
                 return Form(
                   autovalidate: false, // 自动验证
                   key: _formKey,

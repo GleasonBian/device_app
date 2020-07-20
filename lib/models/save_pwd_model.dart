@@ -32,9 +32,9 @@ import 'package:shared_preferences/shared_preferences.dart';
   }
   void getSavePwd() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
-    _userid = sp.getString("userid");
-    _password = sp.getString("password");
-    _ispwd = sp.getBool('ispwd');
+    sp.getString("userid") == null ? _userid = "" : _userid = sp.getString("userid");
+    sp.getString("password") == null ? _password = '' :  _password = sp.getString("password");
+    sp.getBool('ispwd') ==null ? _ispwd = false: _ispwd = sp.getBool('ispwd') ;
     notifyListeners();
   }
 
