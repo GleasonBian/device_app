@@ -42,14 +42,14 @@ tokenInter(){
   ));
 }
 
-Future main({String url = '', String type = "get", Map<String,dynamic>data, Loading=true,}) async {
-  Loading ?? EasyLoading.show(status: 'loading...');
+Future main({String url = '', String type = "get", Map<String,dynamic>data, Loading = true,}) async {
+  Loading ? EasyLoading.show(status: 'loading...'):'';
   // 添加请求 token
   tokenInter();
   // 将请求类型 转为 大写
   type = type.toUpperCase();
   // 打印请求参数
-//  print('请求参数: url:$url,type:$type,body:$data');
+  print('请求参数: url:$url,type:$type,body:$data');
   // 请求参数转换, 为 restful 使用
     data.containsKey('id') ? url = url + '/' + data['id'] : url = url;
 
@@ -84,6 +84,7 @@ Future main({String url = '', String type = "get", Map<String,dynamic>data, Load
     await dio.get(url).then((res) {
       response = res;
     }).catchError((err) => throw Exception("$url: ----->$err"));
+    EasyLoading.dismiss();
     return response.data;
   }
 
@@ -97,6 +98,7 @@ Future main({String url = '', String type = "get", Map<String,dynamic>data, Load
     await dio.put(url,data:data).then((res) {
       response = res;
     }).catchError((err) => throw Exception("$url: ----->$err"));
+    EasyLoading.dismiss();
     return response.data;
   }
 
@@ -110,6 +112,7 @@ Future main({String url = '', String type = "get", Map<String,dynamic>data, Load
     await dio.delete(url,data:data).then((res) {
       response = res;
     }).catchError((err) => throw Exception("$url: ----->$err"));
+    EasyLoading.dismiss();
     return response.data;
   }
 }

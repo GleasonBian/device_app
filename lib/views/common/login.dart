@@ -165,15 +165,21 @@ class _LoginState extends State<Login> {
   }
 
   _onLogin() async {
+
     if ((_formKey.currentState as FormState).validate()) {
       Map response = await Fetch.login({
         'userid': _userIdController.text,
         'password': _passWordController.text
       });
       if (response['Data'] != null) {
-        savePwdModel.ispwd ? savePwdModel.changeSavePwd(password:_passWordController.text,userid:_userIdController.text) : savePwdModel.remove();
+        savePwdModel.ispwd ? savePwdModel.saveUserInfo(password:_passWordController.text,userid:_userIdController.text) : savePwdModel.remove();
+        savePwdModel.saveUserInfo(userName:response['user']['name'],roleName:response['user']['rolename']);
         LocalStore.setString('Authorization', response['Data']);
-        jump.push(context, Routes.index, replace: true);
+        var role = 'device';
+        if (role == 'device')
+          jump.push(context, Routes.deviceIndex, replace: true, clearStack: true);
+        else
+          jump.push(context, Routes.operatorIndex, replace: true, clearStack: true);
       } else {
         EasyLoading.showInfo(response['message']);
       }

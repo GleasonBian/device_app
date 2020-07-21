@@ -5,23 +5,21 @@ import 'package:flutter_template/views/common/login.dart';
 
 class Routes {
   static String root = "/";
-  static String demoSimple = "/demo";
-  static String index = "/index";
-  static String demoSimpleFixedTrans = "/demo/fixedtrans";
-  static String demoFunc = "/demo/func";
-  static String deepLink = "/message";
+  static String deviceIndex = "/device";
+  static String operatorIndex = "/operator";
 
   static void configureRoutes(Router router) {
     router.notFoundHandler = new Handler(
-        handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-          print("ROUTE WAS NOT FOUND !!!");
-          return Login();
-        });
+      handlerFunc: (BuildContext context, Map<String, List<String>> params) => Login()
+    );
+
+    /// 登录页 / 根路由
     router.define(root, handler: rootHandler);
-    router.define(index, handler: indexHandler);
-    router.define(demoSimple, handler: onePage1Handler);
-//    router.define(demoSimpleFixedTrans, handler: onePage1, transitionType: TransitionType.inFromLeft);
-//    router.define(demoFunc, handler: demoFunctionHandler);
-//    router.define(deepLink, handler: deepLinkHandler);
+
+    /// 设备首页
+    router.define(deviceIndex, handler: deviceIndexHandler);
+
+    /// 操作员(司机)首页
+    router.define(operatorIndex, handler: operatorIndexHandler);
   }
 }

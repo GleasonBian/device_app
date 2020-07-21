@@ -1,14 +1,10 @@
-/*
- * @Descripttion: 
- * @Author: LF
- * @Date: 2020-07-10 14:41:31
- * @LastEditTime: 2020-07-14 08:40:02
- */
 
 import 'package:flutter/material.dart';
 import 'package:flutter_template/models/main_state_model.dart';
+import 'package:flutter_template/models/save_pwd_model.dart';
 import 'package:flutter_template/router/routers.dart';
 import 'package:flutter_template/router/navigator_util.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class settingPage extends StatefulWidget {
   @override
@@ -16,13 +12,41 @@ class settingPage extends StatefulWidget {
 }
 
 class _settingPageState extends State<settingPage> {
-  final opation = EdgeInsets.symmetric(vertical: 0, horizontal: 0);
+  final SimpleDialogPadding = EdgeInsets.symmetric(vertical: 0, horizontal: 0);
+  // 保存密码模型
+  SavePwdModel savePwdModel;
+  // 初始化模型
+  _getSavePwdModel() async{
+    if(savePwdModel == null) {
+      savePwdModel = SavePwdModel();
+    }
+    return savePwdModel;
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    _getSavePwdModel();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text('个人中心')),
         body: ListView(
           children: ListTile.divideTiles(context: context, tiles: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 5, 0, 20),
+              child: ScopedModelDescendant<SavePwdModel>(
+                  builder: (context, child, model) {
+                    return ListTile(
+                      leading:  Image.network('https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1462597699,2457940300&fm=26&gp=0.jpg'),
+                      title: Text(model.userName),
+                      subtitle: Text(model.roleName),
+                      trailing: new Icon(Icons.arrow_forward_ios),
+                    );
+                  }
+              ),
+            ),
             ListTile(
               leading: new Icon(
                 Icons.file_download,
@@ -64,7 +88,8 @@ class _settingPageState extends State<settingPage> {
               onTap:  _onBackPressed,
             ),
           ]).toList(),
-        ));
+        ),
+    );
   }
 
   /**
@@ -80,7 +105,7 @@ class _settingPageState extends State<settingPage> {
           title: new Text('选择'),
           children: <Widget>[
             new SimpleDialogOption(
-              padding: opation,
+              padding: SimpleDialogPadding,
               child: ListTile(
                   leading: new Icon(Icons.turned_in, color: Colors.black),
                   title: Text('黑色 - black')),
@@ -89,7 +114,7 @@ class _settingPageState extends State<settingPage> {
               },
             ),
             new SimpleDialogOption(
-              padding: opation,
+              padding: SimpleDialogPadding,
               child: ListTile(
                   leading: new Icon(Icons.turned_in, color: Colors.green),
                   title: Text('绿色 - green')),
@@ -98,7 +123,7 @@ class _settingPageState extends State<settingPage> {
               },
             ),
             new SimpleDialogOption(
-              padding: opation,
+              padding: SimpleDialogPadding,
               child: ListTile(
                   leading: new Icon(Icons.turned_in, color: Colors.blue),
                   title: Text('蓝色 - blue')),
@@ -132,7 +157,7 @@ class _settingPageState extends State<settingPage> {
               ),
               FlatButton(
                 child: Text('确定'),
-                onPressed: ()=>jump.push(context, Routes.root, replace: true,clearStack : true) ,
+                onPressed: ()=> jump.push(context, Routes.root, replace: true,clearStack : true) ,
               ),
             ],
           ),

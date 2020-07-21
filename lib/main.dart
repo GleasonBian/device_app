@@ -1,71 +1,19 @@
 
-
-/*
- * ......................................&&.........................
- * ....................................&&&..........................
- * .................................&&&&............................
- * ...............................&&&&..............................
- * .............................&&&&&&..............................
- * ...........................&&&&&&....&&&..&&&&&&&&&&&&&&&........
- * ..................&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&..............
- * ................&...&&&&&&&&&&&&&&&&&&&&&&&&&&&&.................
- * .......................&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&.........
- * ...................&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&...............
- * ..................&&&   &&&&&&&&&&&&&&&&&&&&&&&&&&&&&............
- * ...............&&&&&@  &&&&&&&&&&..&&&&&&&&&&&&&&&&&&&...........
- * ..............&&&&&&&&&&&&&&&.&&....&&&&&&&&&&&&&..&&&&&.........
- * ..........&&&&&&&&&&&&&&&&&&...&.....&&&&&&&&&&&&&...&&&&........
- * ........&&&&&&&&&&&&&&&&&&&.........&&&&&&&&&&&&&&&....&&&.......
- * .......&&&&&&&&.....................&&&&&&&&&&&&&&&&.....&&......
- * ........&&&&&.....................&&&&&&&&&&&&&&&&&&.............
- * ..........&...................&&&&&&&&&&&&&&&&&&&&&&&............
- * ................&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&............
- * ..................&&&&&&&&&&&&&&&&&&&&&&&&&&&&..&&&&&............
- * ..............&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&....&&&&&............
- * ...........&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&......&&&&............
- * .........&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&.........&&&&............
- * .......&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&...........&&&&............
- * ......&&&&&&&&&&&&&&&&&&&...&&&&&&...............&&&.............
- * .....&&&&&&&&&&&&&&&&............................&&..............
- * ....&&&&&&&&&&&&&&&.................&&...........................
- * ...&&&&&&&&&&&&&&&.....................&&&&......................
- * ...&&&&&&&&&&.&&&........................&&&&&...................
- * ..&&&&&&&&&&&..&&..........................&&&&&&&...............
- * ..&&&&&&&&&&&&...&............&&&.....&&&&...&&&&&&&.............
- * ..&&&&&&&&&&&&&.................&&&.....&&&&&&&&&&&&&&...........
- * ..&&&&&&&&&&&&&&&&..............&&&&&&&&&&&&&&&&&&&&&&&&.........
- * ..&&.&&&&&&&&&&&&&&&&&.........&&&&&&&&&&&&&&&&&&&&&&&&&&&.......
- * ...&&..&&&&&&&&&&&&.........&&&&&&&&&&&&&&&&...&&&&&&&&&&&&......
- * ....&..&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&...........&&&&&&&&.....
- * .......&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&..............&&&&&&&....
- * .......&&&&&.&&&&&&&&&&&&&&&&&&..&&&&&&&&...&..........&&&&&&....
- * ........&&&.....&&&&&&&&&&&&&.....&&&&&&&&&&...........&..&&&&...
- * .......&&&........&&&.&&&&&&&&&.....&&&&&.................&&&&...
- * .......&&&...............&&&&&&&.......&&&&&&&&............&&&...
- * ........&&...................&&&&&&.........................&&&..
- * .........&.....................&&&&........................&&....
- * ...............................&&&.......................&&......
- * ................................&&......................&&.......
- * .................................&&..............................
- * ..................................&..............................
- */
-
+/// 此文件 非 入口文件
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter_template/config/theme.dart';
 import 'package:flutter_template/models/main_state_model.dart';
-import 'package:flutter_template/router/navigator_util.dart';
 import 'package:flutter_template/router/routers.dart';
 import 'package:flutter_template/router/application.dart';
 import 'package:flutter_template/views/common/login.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class App extends StatefulWidget {
-
+  // 接收 theme index
   final int themeIndex;
-
+  // 初始化
   App(this.themeIndex);
 
   @override
@@ -73,71 +21,38 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  dynamic subscription;
   MainStateModel mainStateModel;
-  var loginState;
+
   @override
   void initState() {
-    super.initState();
     mainStateModel = MainStateModel();
     final Router router = Router();
     Routes.configureRoutes(router);
     Application.router = router;
-
+    super.initState();
   }
 
   @override
-  Widget build(BuildContext context)  {
+  Widget build(BuildContext context) {
     return ScopedModel<MainStateModel>(
-        model: mainStateModel,
-        child: ScopedModelDescendant<MainStateModel>(
-          builder: (context, child, model) {
-            return FlutterEasyLoading(
-              child: MaterialApp(
-                debugShowCheckedModeBanner: false, // 去除 DEBUG 标签
-                theme: ThemeData(
-                  platform: TargetPlatform.iOS,
-                  primaryColor: themeList[model.themeIndex != null ? model.themeIndex : widget.themeIndex],
-                ),
-//                home: loginState == 0 ? Login() : IndexPage(),
-                home:  Login(),
-                onGenerateRoute: Application.router.generator,
+      model: mainStateModel,
+      child: ScopedModelDescendant<MainStateModel>(
+        builder: (context, child, model) {
+          return FlutterEasyLoading(
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false, // 去除 DEBUG 标签
+              theme: ThemeData(
+                platform: TargetPlatform.iOS,
+                primaryColor: themeList[model.themeIndex != null
+                    ? model.themeIndex
+                    : widget.themeIndex],
               ),
-            );
-          },
-        ));
-  }
-  Future _validateLogin() async{
-    Future<dynamic> future = Future(()async{
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      return prefs.getString("Authorization");
-    });
-    future.then((val){
-      if(val == null){
-        setState(() {
-          loginState = 0;
-        });
-      }else{
-        setState(() {
-          loginState = 1;
-        });
-      }
-    }).catchError((_){
-      EasyLoading.showError('登录状态失效!');
-      jump.push(context, Routes.root,replace:true);
-    });
+              home: Login(),
+              onGenerateRoute: Application.router.generator,
+            ),
+          );
+        },
+      ),
+    );
   }
 }
-
-/*
- *                   江城子 . 程序员之歌
- * 
- *               十年生死两茫茫，写程序，到天亮。
- *                   千行代码，Bug何处藏。
- *               纵使上线又怎样，朝令改，夕断肠。
- * 
- *               领导每天新想法，天天改，日日忙。
- *                   相顾无言，惟有泪千行。
- *               每晚灯火阑珊处，夜难寐，加班狂。
- * 
- */

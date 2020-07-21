@@ -5,7 +5,7 @@
 import 'package:scoped_model/scoped_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-abstract class ThemeStateModel extends Model {
+class ThemeStateModel extends Model {
   int _themeIndex;
 
   get themeIndex => _themeIndex;

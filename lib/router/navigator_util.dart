@@ -47,7 +47,6 @@ class jump {
    * @content: 不需要页面返回值的跳转
    */
   static push(BuildContext context, String path, {bool replace = false, bool clearStack = false}) {
-    print('replace:$replace');
     FocusScope.of(context).requestFocus(new FocusNode());
     Application.router.navigateTo(context, path, replace: replace, clearStack: clearStack, transition: TransitionType.native);
   }
