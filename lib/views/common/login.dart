@@ -84,8 +84,10 @@ class _LoginState extends State<Login> {
               child: ScopedModelDescendant<SavePwdModel>(
                builder: (context, child, model) {
                  // 保存密码从本地获取
-                 model.userid == ''|| model.userid == null ? '' : _userIdController.text = model.userid;
-                 model.password == ''||model.password == null ? '' : _passWordController.text = model.password;
+                 if (model.ispwd) {
+                   model.userid == ''|| model.userid == null ? '' : _userIdController.text = model.userid;
+                   model.password == ''||model.password == null ? '' : _passWordController.text = model.password;
+                 }
                 return Form(
                   autovalidate: false, // 自动验证
                   key: _formKey,
@@ -137,13 +139,7 @@ class _LoginState extends State<Login> {
                               title: const Text('记住账号密码'),
                               value: model.ispwd,
                               activeColor: Theme.of(context).primaryColor,
-                              onChanged: (bool value) {
-                                 model.changeIsPwd(ispwd: value);
-                                 if (value && (_formKey.currentState as FormState).validate())
-                                   model.changeSavePwd(password:  _passWordController.text,userid: _userIdController.text);
-                                 else
-                                   (_formKey.currentState as FormState).validate() ? '' :  EasyLoading.showInfo('请输入账号密码');
-                              },
+                              onChanged: (bool value) =>  model.changeIsPwd(ispwd: value),
                             ),
                       ),
                       Container(
@@ -175,8 +171,9 @@ class _LoginState extends State<Login> {
         'password': _passWordController.text
       });
       if (response['Data'] != null) {
-        jump.push(context, Routes.index, replace: true);
+        savePwdModel.ispwd ? savePwdModel.changeSavePwd(password:_passWordController.text,userid:_userIdController.text) : savePwdModel.remove();
         LocalStore.setString('Authorization', response['Data']);
+        jump.push(context, Routes.index, replace: true);
       } else {
         EasyLoading.showInfo(response['message']);
       }

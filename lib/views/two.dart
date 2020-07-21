@@ -20,6 +20,7 @@ class PageState extends BaseState<RefuelPlanPage> {
   void toAdd() {}
   var listHelperControl = ListHelperControl();
   List list = [];
+
   void onLoad(int page) {
     Future.delayed(Duration(milliseconds: 2000), () {
       //模拟网络请求结果
@@ -41,39 +42,39 @@ class PageState extends BaseState<RefuelPlanPage> {
   }
 
   TextEditingController textEditCtrl = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text('加油计划'),
-          actions: <Widget>[
-            ClickWidget(
-              child: Center(
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                    '添加',
-                    style: TextStyle(color: Colors.white, fontSize: 17),
-                  ),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('加油计划'),
+        actions: <Widget>[
+          ClickWidget(
+            child: Center(
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: Text(
+                  '添加',
+                  style: TextStyle(color: Colors.white, fontSize: 17),
                 ),
               ),
-              onClick: () => toAdd(),
-            )
-          ],
-        ),
-        body: Column(
-          children: <Widget>[
-            Container(
-              child: TextField(
-                controller: textEditCtrl,
-                decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10), helperText: '关键字'),
-                autofocus: false,
-              ),
             ),
-            Container(
-                child: Expanded(
+            onClick: () => toAdd(),
+          )
+        ],
+      ),
+      body: Column(
+        children: <Widget>[
+          Container(
+            child: TextField(
+              controller: textEditCtrl,
+              decoration: InputDecoration(contentPadding: EdgeInsets.all(10), helperText: '关键字'),
+              autofocus: false,
+            ),
+          ),
+          Container(
+            child: Expanded(
               flex: 1,
               child: ListHelperWidget(
                 controller: listHelperControl,
@@ -145,8 +146,10 @@ class PageState extends BaseState<RefuelPlanPage> {
                   );
                 },
               ),
-            ))
-          ],
-        ));
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
